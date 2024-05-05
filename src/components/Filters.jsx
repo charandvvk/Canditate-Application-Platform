@@ -12,18 +12,40 @@ export default function Filters() {
         );
     }
 
+    const payOptions = [];
+    for (let i = 0; i < 8; i++) {
+        payOptions.push(
+            <option key={i} value={i * 10}>
+                {i * 10}L
+            </option>
+        );
+    }
+
     const dispatch = useDispatch();
 
     return (
-        <select
-            name="experience"
-            id="experience"
-            onChange={(event) =>
-                dispatch(filtersActions.setExperience(event.target.value))
-            }
-        >
-            <option value={10}>Experience</option>
-            {experienceOptions}
-        </select>
+        <>
+            <select
+                name="experience"
+                id="experience"
+                onChange={(event) =>
+                    dispatch(filtersActions.setExperience(event.target.value))
+                }
+            >
+                <option value={10}>Experience</option>
+                {experienceOptions}
+            </select>
+
+            <select
+                name="pay"
+                id="pay"
+                onChange={(event) =>
+                    dispatch(filtersActions.setPay(event.target.value))
+                }
+            >
+                <option value={70}>Minimum Base Pay Salary</option>
+                {payOptions}
+            </select>
+        </>
     );
 }

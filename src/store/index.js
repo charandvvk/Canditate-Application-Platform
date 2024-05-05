@@ -2,6 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     experience: 10,
+    pay: 70,
 };
 
 const filtersSlice = createSlice({
@@ -10,6 +11,9 @@ const filtersSlice = createSlice({
     reducers: {
         setExperience(state, { payload }) {
             state.experience = payload;
+        },
+        setPay(state, { payload }) {
+            state.pay = payload;
         },
     },
 });
