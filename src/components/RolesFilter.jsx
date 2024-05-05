@@ -21,20 +21,18 @@ const MenuProps = {
     },
 };
 
-const locations = ["Remote", "In-office"];
-
-function getStyles(name, locationsState, theme) {
+function getStyles(name, rolesState, theme) {
     return {
         fontWeight:
-            locationsState.indexOf(name) === -1
+            rolesState.indexOf(name) === -1
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
 }
 
-export default function LocationFilter() {
+export default function RolesFilter({ roles }) {
     const theme = useTheme();
-    const [locationsState, setlocationsState] = React.useState([]);
+    const [rolesState, setRolesState] = React.useState([]);
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
@@ -42,8 +40,8 @@ export default function LocationFilter() {
             target: { value },
         } = event;
         const newValue = typeof value === "string" ? value.split(",") : value;
-        setlocationsState(newValue);
-        dispatch(filtersActions.setLocations(newValue));
+        setRolesState(newValue);
+        dispatch(filtersActions.setRoles(newValue));
         // On autofill we get a stringified value.
     };
 
@@ -55,7 +53,7 @@ export default function LocationFilter() {
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
-                    value={locationsState}
+                    value={rolesState}
                     onChange={handleChange}
                     input={
                         <OutlinedInput id="select-multiple-chip" label="Chip" />
@@ -71,11 +69,11 @@ export default function LocationFilter() {
                     )}
                     MenuProps={MenuProps}
                 >
-                    {locations.map((location, index) => (
+                    {roles.map((location, index) => (
                         <MenuItem
                             key={index}
                             value={location}
-                            style={getStyles(name, locationsState, theme)}
+                            style={getStyles(name, rolesState, theme)}
                         >
                             {location}
                         </MenuItem>

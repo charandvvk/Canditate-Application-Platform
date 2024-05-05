@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../store";
-import LocationFilter from "./LocationFilter";
+import LocationsFilter from "./LocationsFilter";
+import RolesFilter from "./RolesFilter";
 
-export default function Filters({ locations }) {
+export default function Filters({ roles }) {
     const experienceOptions = [];
     for (let i = 1; i < 11; i++) {
         experienceOptions.push(
@@ -26,6 +27,8 @@ export default function Filters({ locations }) {
 
     return (
         <>
+            <RolesFilter roles={roles} />
+
             <select
                 name="experience"
                 id="experience"
@@ -37,7 +40,7 @@ export default function Filters({ locations }) {
                 {experienceOptions}
             </select>
 
-            <LocationFilter />
+            <LocationsFilter />
 
             <select
                 name="pay"

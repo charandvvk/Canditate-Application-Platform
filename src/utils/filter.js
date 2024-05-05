@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 
 function filter(jobs) {
-    const { experience, locations, pay } = useSelector(
+    const { roles, experience, locations, pay } = useSelector(
         (state) => state.filters
     );
 
     const filteredJobs = jobs.filter((job) => {
+        let isRolesPass = true;
+        if (roles.length) isRolesPass = roles.includes(job.jobRole);
         const isExperiencePass = job.minExp <= experience;
         let isLocationPass = true;
         if (locations.length) {
@@ -17,7 +19,7 @@ function filter(jobs) {
             }
         }
         const isPayPass = job.maxJdSalary >= pay;
-        return isExperiencePass && isLocationPass && isPayPass;
+        return isRolesPass && isExperiencePass && isLocationPass && isPayPass;
     });
 
     return filteredJobs;

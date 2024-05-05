@@ -1,6 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    roles: [],
     experience: 10,
     locations: [],
     pay: 0,
@@ -10,6 +11,9 @@ const filtersSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
+        setRoles(state, { payload }) {
+            state.roles = payload;
+        },
         setExperience(state, { payload }) {
             state.experience = payload;
         },

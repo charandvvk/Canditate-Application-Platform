@@ -31,12 +31,13 @@ function App() {
             .catch((error) => console.error(error));
     }, []);
 
+    const roles = [...new Set(jobs.map((job) => job.jobRole))];
+
     const filteredJobs = filter(jobs.map((job) => ({ ...job })));
-    const locations = jobs.map((job) => job.location);
 
     return (
         <>
-            <Filters locations={locations} />
+            <Filters roles={roles} />
             <JobList jobs={filteredJobs} />
         </>
     );
