@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../store";
 import LocationsFilter from "./LocationsFilter";
 import RolesFilter from "./RolesFilter";
@@ -24,6 +24,8 @@ export default function Filters({ roles }) {
     }
 
     const dispatch = useDispatch();
+
+    const { company } = useSelector((state) => state.filters);
 
     return (
         <>
@@ -52,6 +54,15 @@ export default function Filters({ roles }) {
                 <option value={0}>Minimum Base Pay Salary</option>
                 {payOptions}
             </select>
+
+            <input
+                type="text"
+                placeholder="Company Name"
+                value={company}
+                onChange={(event) =>
+                    dispatch(filtersActions.setCompany(event.target.value))
+                }
+            />
         </>
     );
 }

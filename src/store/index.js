@@ -5,6 +5,7 @@ const initialState = {
     experience: 10,
     locations: [],
     pay: 0,
+    company: "",
 };
 
 const filtersSlice = createSlice({
@@ -19,10 +20,13 @@ const filtersSlice = createSlice({
         },
         setLocations(state, { payload }) {
             state.locations = payload;
-            console.log(payload);
         },
         setPay(state, { payload }) {
             state.pay = payload;
+        },
+        setCompany(state, { payload }) {
+            state.company = payload;
+            console.log(payload);
         },
     },
 });
