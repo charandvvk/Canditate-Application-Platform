@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Job() {
+export default function JobCard() {
     return <div>Job</div>;
 }
