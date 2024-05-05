@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import JobCard from "./JobCard";
+import filter from "../utils/filter";
 
 export default function JobList() {
     const [jobs, setJobs] = useState([]);
@@ -28,9 +29,11 @@ export default function JobList() {
             .catch((error) => console.error(error));
     }, []);
 
+    const filteredJobs = filter(jobs.map((job) => ({ ...job })));
+
     return (
         <>
-            {jobs.map((job, index) => (
+            {filteredJobs.map((job, index) => (
                 <JobCard key={index} job={job} />
             ))}
         </>

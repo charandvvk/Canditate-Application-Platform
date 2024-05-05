@@ -1,11 +1,17 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+    experience: 10,
+};
 
 const filtersSlice = createSlice({
     name: "filters",
     initialState,
-    reducers: {},
+    reducers: {
+        setExperience(state, { payload }) {
+            state.experience = payload;
+        },
+    },
 });
 
 const store = configureStore({

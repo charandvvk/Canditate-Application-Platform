@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function JobCard() {
-    return <div>Job</div>;
+export default function JobCard({ job }) {
+    return <div>{job.minExp}</div>;
 }
