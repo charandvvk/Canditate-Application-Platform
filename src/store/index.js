@@ -2,7 +2,8 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     experience: 10,
-    pay: 70,
+    locations: [],
+    pay: 0,
 };
 
 const filtersSlice = createSlice({
@@ -11,6 +12,10 @@ const filtersSlice = createSlice({
     reducers: {
         setExperience(state, { payload }) {
             state.experience = payload;
+        },
+        setLocations(state, { payload }) {
+            state.locations = payload;
+            console.log(payload);
         },
         setPay(state, { payload }) {
             state.pay = payload;

@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../store";
+import LocationFilter from "./LocationFilter";
 
-export default function Filters() {
+export default function Filters({ locations }) {
     const experienceOptions = [];
     for (let i = 1; i < 11; i++) {
         experienceOptions.push(
@@ -36,6 +37,8 @@ export default function Filters() {
                 {experienceOptions}
             </select>
 
+            <LocationFilter />
+
             <select
                 name="pay"
                 id="pay"
@@ -43,7 +46,7 @@ export default function Filters() {
                     dispatch(filtersActions.setPay(event.target.value))
                 }
             >
-                <option value={70}>Minimum Base Pay Salary</option>
+                <option value={0}>Minimum Base Pay Salary</option>
                 {payOptions}
             </select>
         </>

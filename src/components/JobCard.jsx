@@ -3,7 +3,7 @@ import React from "react";
 export default function JobCard({ job }) {
     return (
         <div>
-            {job.minExp} {job.maxJdSalary}
+            {job.minExp} {job.maxJdSalary} {job.location}
         </div>
     );
 }

@@ -1,39 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import JobCard from "./JobCard";
-import filter from "../utils/filter";
 
-export default function JobList() {
-    const [jobs, setJobs] = useState([]);
-
-    useEffect(() => {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const body = JSON.stringify({
-            limit: 10,
-            offset: 0,
-        });
-
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body,
-        };
-
-        fetch(
-            "https://api.weekday.technology/adhoc/getSampleJdJSON",
-            requestOptions
-        )
-            .then((response) => response.json())
-            .then((result) => setJobs(result.jdList))
-            .catch((error) => console.error(error));
-    }, []);
-
-    const filteredJobs = filter(jobs.map((job) => ({ ...job })));
-
+export default function JobList({ jobs }) {
     return (
         <>
-            {filteredJobs.map((job, index) => (
+            {jobs.map((job, index) => (
                 <JobCard key={index} job={job} />
             ))}
         </>
