@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import classes from "./App.module.css";
 import Filters from "./components/Filters/Filters";
 import JobList from "./components/JobList/JobList";
 import filter from "./utils/filter";
 
 function App() {
     const [jobs, setJobs] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
+    const getJobs = () => {
+        setIsLoading(true);
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         const body = JSON.stringify({
             limit: 10,
-            offset: 0,
+            offset,
         });
 
         const requestOptions = {
@@ -27,8 +30,30 @@ function App() {
             requestOptions
         )
             .then((response) => response.json())
-            .then((result) => setJobs(result.jdList))
+            .then((result) => {
+                setJobs((prev) => [...prev, ...result.jdList]);
+                setIsLoading(false);
+            })
             .catch((error) => console.error(error));
+    };
+
+    useEffect(() => {
+        getJobs();
+    }, [offset]);
+
+    const handelInfiniteScroll = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop ===
+            document.documentElement.scrollHeight
+        ) {
+            setIsLoading(true);
+            setOffset((prev) => prev + 10);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handelInfiniteScroll);
+        return () => window.removeEventListener("scroll", handelInfiniteScroll);
     }, []);
 
     const roles = [...new Set(jobs.map((job) => job.jobRole))];
@@ -39,6 +64,9 @@ function App() {
         <>
             <Filters roles={roles} />
             <JobList jobs={filteredJobs} />
+            {isLoading && (
+                <div className={classes.loading}>Loading jobs...</div>
+            )}
         </>
     );
 }
