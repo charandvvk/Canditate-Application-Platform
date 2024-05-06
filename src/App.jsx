@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Filters from "./components/Filters";
+import Filters from "./components/Filters/Filters";
 import JobList from "./components/JobList/JobList";
 import filter from "./utils/filter";
 

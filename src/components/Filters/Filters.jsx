@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filtersActions } from "../store";
-import LocationsFilter from "./LocationsFilter";
-import RolesFilter from "./RolesFilter";
+import { filtersActions } from "../../store";
+import LocationsFilter from "../LocationsFilter";
+import RolesFilter from "../RolesFilter";
+import classes from "./Filters.module.css";
 
 export default function Filters({ roles }) {
     const experienceOptions = [];
@@ -28,7 +29,7 @@ export default function Filters({ roles }) {
     const { company } = useSelector((state) => state.filters);
 
     return (
-        <>
+        <div className={classes.filters}>
             <RolesFilter roles={roles} />
 
             <select
@@ -63,6 +64,6 @@ export default function Filters({ roles }) {
                     dispatch(filtersActions.setCompany(event.target.value))
                 }
             />
-        </>
+        </div>
     );
 }
