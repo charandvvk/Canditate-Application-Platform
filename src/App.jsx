@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Filters from "./components/Filters";
-import JobList from "./components/JobList";
+import JobList from "./components/JobList/JobList";
 import filter from "./utils/filter";
 
 function App() {
