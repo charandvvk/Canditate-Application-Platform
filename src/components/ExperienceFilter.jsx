@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../store";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+// create an array of options for dropdown
 const experienceOptions = [];
 for (let i = 1; i < 11; i++) {
     experienceOptions.push(`${i}`);

@@ -1,11 +1,12 @@
 import React from "react";
 import classes from "./JobCard.module.css";
 
+// function to capitalize every word in a string
 const capitalize = (string) =>
     string.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
 
 export default function JobCard({ job }) {
-    const daysAgo = Math.floor(Math.random() * 13 + 1);
+    const daysAgo = Math.floor(Math.random() * 13 + 1); // generate a random number for days ago
 
     return (
         <div className={classes["job-card"]}>

@@ -6,11 +6,14 @@ export default function filter(jobs) {
     );
 
     const filteredJobs = jobs.filter((job) => {
+        // role filter
         let isRolesPass = true;
         if (roles.length) isRolesPass = roles.includes(job.jobRole);
 
+        // experience filter
         const isExperiencePass = job.minExp && job.minExp <= (experience ?? 10);
 
+        // location filter
         let isLocationPass = true;
         if (locations.length) {
             isLocationPass = false;
@@ -21,12 +24,15 @@ export default function filter(jobs) {
             }
         }
 
+        // pay filter
         const isPayPass = job.maxJdSalary && job.maxJdSalary >= (pay ?? 0);
 
+        // company filter
         const isCompanyPass =
             job.companyName &&
             job.companyName.toLowerCase().includes(company.toLowerCase());
 
+        // filter only if all the above filters are passed through
         return (
             isRolesPass &&
             isExperiencePass &&

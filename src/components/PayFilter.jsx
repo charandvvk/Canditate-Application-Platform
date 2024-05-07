@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../store";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+// create an array of options for dropdown
 const payOptions = [];
 for (let i = 0; i < 8; i++) {
     payOptions.push(`${i * 10}L`);

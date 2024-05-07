@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+// central state management for various filters
 const initialState = {
     roles: [],
     experience: null,

@@ -5,11 +5,13 @@ import filter from "./utils/filter";
 import FiltersList from "./components/FiltersList/FiltersList";
 
 function App() {
+    // state management for jobs, offset, loading, and error
     const [jobs, setJobs] = useState([]);
     const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    // function to get api data and manage related states
     const getJobs = () => {
         setIsLoading(true);
 
@@ -33,7 +35,7 @@ function App() {
         )
             .then((response) => response.json())
             .then((result) => {
-                setJobs((prev) => [...prev, ...result.jdList]);
+                setJobs((prev) => [...prev, ...result.jdList]); // add newly fetched jobs to the list of existing jobs
             })
             .catch(() =>
                 setError(
@@ -43,27 +45,28 @@ function App() {
             .finally(() => setIsLoading(false));
     };
 
+    useEffect(() => {
+        getJobs();
+    }, [offset]);
+
+    // function to trigger the fetching of more jobs on infinite scroll
     const handleInfiniteScroll = () => {
         if (
             window.innerHeight + document.documentElement.scrollTop ===
             document.documentElement.scrollHeight
         ) {
             setIsLoading(true);
-            setOffset((prevState) => prevState + 10);
+            setOffset((prevState) => prevState + 10); // change in offset leads to the execution of the useEffect with offset as dependency
         }
     };
-
-    useEffect(() => {
-        getJobs();
-    }, [offset]);
 
     useEffect(() => {
         window.addEventListener("scroll", handleInfiniteScroll);
         return () => window.removeEventListener("scroll", handleInfiniteScroll);
     }, []);
 
-    const roles = [...new Set(jobs.map((job) => job.jobRole))];
-    const filteredJobs = filter(jobs);
+    const roles = [...new Set(jobs.map((job) => job.jobRole))]; // create an array of options for dropdown
+    const filteredJobs = filter(jobs); // pass the unfiltered jobs to the imported filter function
 
     return (
         <>
