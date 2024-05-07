@@ -6,6 +6,7 @@
     border: 1px solid rgb(204, 204, 204);
     border-radius: 5px;
     padding: 7.5px 15px 0;
+    font-family: "Teachers", sans-serif;
 }
 
 .company:focus-visible {

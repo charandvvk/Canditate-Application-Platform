@@ -13,7 +13,7 @@ export default function RolesFilter(props) {
     const dispatch = useDispatch();
 
     const handleChange = (_, value) => {
-        dispatch(filtersActions.setRoles(value));
+        dispatch(filtersActions.setFilter({ type: "roles", value }));
     };
 
     return (

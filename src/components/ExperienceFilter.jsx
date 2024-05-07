@@ -17,7 +17,12 @@ export default function ExperienceFilter() {
 
     const handleChange = (_, value) => {
         console.log(value);
-        dispatch(filtersActions.setExperience(value ? parseInt(value) : null));
+        dispatch(
+            filtersActions.setFilter({
+                type: "experience",
+                value: value ? parseInt(value) : null,
+            })
+        );
     };
 
     return (

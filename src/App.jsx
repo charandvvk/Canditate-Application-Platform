@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import classes from "./App.module.css";
-import Filters from "./components/Filters/Filters";
 import JobList from "./components/JobList/JobList";
 import filter from "./utils/filter";
+import FiltersList from "./components/FiltersList/FiltersList";
 
 function App() {
     const [jobs, setJobs] = useState([]);
     const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const getJobs = () => {
         setIsLoading(true);
+
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -32,41 +34,45 @@ function App() {
             .then((response) => response.json())
             .then((result) => {
                 setJobs((prev) => [...prev, ...result.jdList]);
-                setIsLoading(false);
             })
-            .catch((error) => console.error(error));
+            .catch(() =>
+                setError(
+                    "Unable to load data. Please check your internet connection or try again later as the server may be down."
+                )
+            )
+            .finally(() => setIsLoading(false));
+    };
+
+    const handleInfiniteScroll = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop ===
+            document.documentElement.scrollHeight
+        ) {
+            setIsLoading(true);
+            setOffset((prevState) => prevState + 10);
+        }
     };
 
     useEffect(() => {
         getJobs();
     }, [offset]);
 
-    const handelInfiniteScroll = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop ===
-            document.documentElement.scrollHeight
-        ) {
-            setIsLoading(true);
-            setOffset((prev) => prev + 10);
-        }
-    };
-
     useEffect(() => {
-        window.addEventListener("scroll", handelInfiniteScroll);
-        return () => window.removeEventListener("scroll", handelInfiniteScroll);
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll);
     }, []);
 
     const roles = [...new Set(jobs.map((job) => job.jobRole))];
-
-    const filteredJobs = filter(jobs.map((job) => ({ ...job })));
+    const filteredJobs = filter(jobs);
 
     return (
         <>
-            <Filters roles={roles} />
+            <FiltersList roles={roles} />
             <JobList jobs={filteredJobs} />
             {isLoading && (
-                <div className={classes.loading}>Loading jobs...</div>
+                <div className={classes["text-center"]}>Loading jobs...</div>
             )}
+            {error && <div className={classes["text-center"]}>{error}</div>}
         </>
     );
 }

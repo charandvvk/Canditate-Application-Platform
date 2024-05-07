@@ -13,7 +13,7 @@ export default function LocationsFilter() {
     const dispatch = useDispatch();
 
     const handleChange = (_, value) => {
-        dispatch(filtersActions.setLocations(value));
+        dispatch(filtersActions.setFilter({ type: "locations", value }));
     };
 
     return (

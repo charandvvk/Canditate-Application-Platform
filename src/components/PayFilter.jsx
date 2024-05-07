@@ -17,7 +17,10 @@ export default function PayFilter() {
 
     const handleChange = (_, value) => {
         dispatch(
-            filtersActions.setPay(value ? parseInt(value.slice(0, -1)) : null)
+            filtersActions.setFilter({
+                type: "pay",
+                value: value ? parseInt(value.slice(0, -1)) : null,
+            })
         );
     };
 

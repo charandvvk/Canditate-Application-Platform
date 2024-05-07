@@ -12,21 +12,8 @@ const filtersSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
-        setRoles(state, { payload }) {
-            state.roles = payload;
-        },
-        setExperience(state, { payload }) {
-            state.experience = payload;
-        },
-        setLocations(state, { payload }) {
-            state.locations = payload;
-        },
-        setPay(state, { payload }) {
-            state.pay = payload;
-        },
-        setCompany(state, { payload }) {
-            state.company = payload;
-            console.log(payload);
+        setFilter(state, { payload }) {
+            state[payload.type] = payload.value;
         },
     },
 });

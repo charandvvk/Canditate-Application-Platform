@@ -15,7 +15,12 @@ export default function CompanyFilter() {
                 placeholder="Search Company Name"
                 value={company}
                 onChange={(event) =>
-                    dispatch(filtersActions.setCompany(event.target.value))
+                    dispatch(
+                        filtersActions.setFilter({
+                            type: "company",
+                            value: event.target.value,
+                        })
+                    )
                 }
                 className={classes.company}
             />
