@@ -2,9 +2,9 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     roles: [],
-    experience: 10,
+    experience: null,
     locations: [],
-    pay: 0,
+    pay: null,
     company: "",
 };
 

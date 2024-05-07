@@ -1,0 +1,17 @@
+.company {
+    font-size: large;
+    width: 230px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 7.5px 15px 0;
+}
+
+.company:focus-visible {
+    outline: none;
+}
+
+.company::-webkit-input-placeholder {
+    color: rgb(148, 148, 148);
+}

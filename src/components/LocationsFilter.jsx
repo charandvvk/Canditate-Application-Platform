@@ -1,87 +1,59 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
-import { useDispatch } from "react-redux";
+import TextField from "@mui/material/TextField";
+import { useDispatch, useSelector } from "react-redux";
 import { filtersActions } from "../store";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
-
-const locations = ["Remote", "In-office"];
-
-function getStyles(name, locationsState, theme) {
-    return {
-        fontWeight:
-            locationsState.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function LocationsFilter() {
-    const theme = useTheme();
-    const [locationsState, setLocationsState] = React.useState([]);
+    const { locations } = useSelector((state) => state.filters);
+
     const dispatch = useDispatch();
 
-    const handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        const newValue = typeof value === "string" ? value.split(",") : value;
-        setLocationsState(newValue);
-        dispatch(filtersActions.setLocations(newValue));
-        // On autofill we get a stringified value.
+    const handleChange = (_, value) => {
+        dispatch(filtersActions.setLocations(value));
     };
 
     return (
         <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
-                <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
-                    multiple
-                    value={locationsState}
-                    onChange={handleChange}
-                    input={
-                        <OutlinedInput id="select-multiple-chip" label="Chip" />
-                    }
-                    renderValue={(selected) => (
-                        <Box
-                            sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
-                        >
-                            {selected.map((value) => (
-                                <Chip key={value} label={value} />
-                            ))}
-                        </Box>
-                    )}
-                    MenuProps={MenuProps}
-                >
-                    {locations.map((location, index) => (
-                        <MenuItem
+            {locations.length ? "Locations" : ""}
+            <Autocomplete
+                multiple
+                id="tags-outlined"
+                options={["Remote", "In-office"]}
+                getOptionLabel={(option) => option}
+                filterSelectedOptions
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        placeholder={!locations.length ? "Locations" : ""}
+                    />
+                )}
+                renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                        <Chip
                             key={index}
-                            value={location}
-                            style={getStyles(name, locationsState, theme)}
-                        >
-                            {location}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+                            label={option}
+                            {...getTagProps({ index })}
+                            style={{
+                                background: "rgb(230, 229, 229)",
+                                borderRadius: "5px",
+                            }}
+                            deleteIcon={
+                                <ClearIcon
+                                    style={{
+                                        margin: "0px",
+                                    }}
+                                />
+                            }
+                        />
+                    ))
+                }
+                onChange={handleChange}
+                popupIcon={<ExpandMoreIcon />}
+            />
         </div>
     );
 }

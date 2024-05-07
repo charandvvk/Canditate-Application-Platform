@@ -1,4 +1,5 @@
 .filters {
     display: flex;
+    gap: 10px;
     margin: 30px 30px 75px;
 }

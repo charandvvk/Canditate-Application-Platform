@@ -1,3 +1,23 @@
+.font-bold {
+    font-weight: 500;
+}
+
+.font-large {
+    font-size: larger;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
 .job-card {
     width: 430px;
     height: 805px;
@@ -16,6 +36,8 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     display: inline-block;
     margin-bottom: 30px;
+    font-size: smaller;
+    padding: 5px;
 }
 
 .logo {
@@ -28,16 +50,13 @@
     gap: 10px;
 }
 
-.mb-20 {
-    margin-bottom: 20px;
+.title {
+    color: rgb(139, 139, 139);
+    letter-spacing: 1.5px;
 }
 
-.mb-5 {
-    margin-bottom: 5px;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
+.salary {
+    color: rgb(67, 79, 96);
 }
 
 .btn {
@@ -47,6 +66,8 @@
     border: none;
     margin-bottom: 15px;
     cursor: pointer;
+    font-family: inherit;
+    font-size: x-large;
 }
 
 .btn--apply {
